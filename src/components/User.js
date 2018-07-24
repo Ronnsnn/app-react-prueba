@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 class User extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +24,7 @@ class User extends Component {
       <div>
         <h1>{ this.state.user.first_name + ' ' + this.state.user.last_name}</h1>
         <p> Avatar link: <a href={this.state.user.avatar}>{this.state.user.avatar}</a></p>
+        <Link to='/contact'>asd</Link>
       </div>
     );
   }

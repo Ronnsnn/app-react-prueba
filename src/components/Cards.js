@@ -3,23 +3,34 @@ import { Link } from 'react-router-dom';
 import {
   Row, Col,
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, CardSubtitle
 } from 'reactstrap';
 
-import './css/ListCards.css'
+import loading from '../assets/loading.gif'
+import './css/ListCards.css';
+
 
 
 class Cards extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       users: []
     }
   }
   componentDidMount() {
+    this.getApiData();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.page !== this.props.page)
+      this.getApiData();
+  }
+
+  getApiData() {
+    this.setState({ users: [] });
     var URL = 'https://reqres.in/api/users';
-    if (this.props.match.params.page) {
-      URL = URL + '?page=' + this.props.match.params.page;
+    if (this.props.page) {
+      URL = URL + '?page=' + this.props.page;
     }
     fetch(URL).
       then(results => { return results.json() }).
@@ -46,9 +57,9 @@ class Cards extends Component {
 
   render() {
     return (
-        <Row>
-          {this.state.users.length > 0  ? this.state.users : <h2>Wait</h2>}
-        </Row>
+      <Row>
+        {this.state.users.length > 0 ? this.state.users : <div className='loading'><img src={loading} alt=''/></div>}
+      </Row>
     );
   }
 }

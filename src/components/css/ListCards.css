@@ -1,6 +1,9 @@
 .card {
     margin: 20px 0;
 }
+.loading {
+    text-align: center;
+}
 .row ul.pagination {
-    margin: 0 auto;
+    margin: 0 auto 20px;
 }

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Switch, Link, Route } from 'react-router-dom';
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 
 import './css/ListCards.css'
 import Cards from './Cards';
@@ -12,7 +9,8 @@ class ListCards extends Component {
   constructor() {
     super();
     this.state = {
-      pageData: []
+      actual: [],
+      total_pages: []
     }
   }
   componentDidMount() {
@@ -23,27 +21,24 @@ class ListCards extends Component {
       fetch(URL).
         then(results => { return results.json() }).
         then(data => {
-          let page = {
-            actual: data.page,
-            total: data.total_pages
-          }
-          this.setState({ pageData: page });
+          this.setState({ actual: data.page,
+            total_pages: data.total_pages });
         });
     
   }
-
+  changePage(page) {
+    this.setState({ actual: page });
+  }
   render() {
     return (
       <div>
-        <Switch>
-          <Route exact path='/:page' key='groups' component={Cards} />
-        </Switch>
+        <Cards page={this.state.actual}/>
         <div className="row">
           <ul className='pagination'>
-            { Array.from(new Array(this.state.pageData.total), (x, i) => {
+            { Array.from(new Array(this.state.total_pages), (x, i) => {
                 return (
                   <li className='page-item' key={1+i} >
-                    <a href={1 + i} className='page-link'>{1 + i}</a>
+                    <Link to={`/page/${1 + i}`} className='page-link' onClick={() => this.changePage(1 + i)}>{1 + i}</Link>
                   </li>
                 );
               })
@@ -53,6 +48,7 @@ class ListCards extends Component {
       </div>
     );
   }
+  
 }
 
 export default ListCards;
