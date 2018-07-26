@@ -48,7 +48,6 @@ class ListCards extends Component {
       </div>
     );
   }
-  
 }
 
 export default ListCards;

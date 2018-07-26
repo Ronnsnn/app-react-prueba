@@ -9,7 +9,7 @@ import Contact from './Contact';
 class Body extends Component {
   render() {
     return (
-      <div className='container'>
+      <div className='container content'>
         <Switch>
           <Route path='/' key='home' exact component={ListCards} />
           <Route exact path='/page/:page' key='page' component={ListCards} />

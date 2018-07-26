@@ -1,0 +1,13 @@
+import { ADD_USER } from "../constants/action-types";
+const initialState = {
+  user: []
+};
+const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_USER:
+        return { ...state, user: [...state.user, action.payload] };
+    default:
+      return state;
+  }
+};
+export default userReducer;
